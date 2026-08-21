@@ -56,3 +56,4 @@ def create_feature(data: pd.DataFrame) -> pd.DataFrame:
     logger.info(
         f"Prazos não positivos: {data['promised_days'].le(0).sum()}"
     )
+    return data
