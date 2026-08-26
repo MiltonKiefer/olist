@@ -3,10 +3,10 @@ from sklearn.model_selection import train_test_split
 
 
 FEATURES = [
+    "promised_days",
     "purchase_hour",
     "purchase_weekday",
     "purchase_month",
-    "purchase_days",
     "item_count",
     "seller_count",
     "total_price",
