@@ -17,7 +17,6 @@ CATEGORICAL_FEATURES = [
     "purchase_month",
     "purchase_weekday",
     "purchase_hour",
-    "purchase_state",
     "customer_state"
 ]
 

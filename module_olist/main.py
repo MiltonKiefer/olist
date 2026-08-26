@@ -7,6 +7,9 @@ from module_olist.dataset import (
     save_data,
 )
 from module_olist.features import create_feature
+from module_olist.modeling.evaluate import evaluate_models
+from module_olist.modeling.split import split_data
+from module_olist.modeling.train import train_models
 
 
 def main():
@@ -50,6 +53,10 @@ def main():
     output_path = INTERIM_DATA_DIR / "olist_dataset.csv"
     save_data(dataset, output_path)
 
+    X_train, X_test, y_train, y_test = split_data(dataset)
+    trained_models = train_models(X_train, y_train)
+    evaluate_models(trained_models, X_test, y_test)
+    
     logger.info(f"Pipeline finalizado. Dataset salvo em {output_path}")
 
 
