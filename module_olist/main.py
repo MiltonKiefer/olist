@@ -9,7 +9,7 @@ from module_olist.dataset import (
 from module_olist.features import create_feature
 from module_olist.modeling.evaluate import evaluate_models
 from module_olist.modeling.split import split_data
-from module_olist.modeling.train import train_models
+from module_olist.modeling.train import cross_validate_models, get_models, train_models
 
 
 def main():
@@ -54,9 +54,18 @@ def main():
     save_data(dataset, output_path)
 
     X_train, X_test, y_train, y_test = split_data(dataset)
+
+    models = get_models()
+    cv_results = cross_validate_models(models, X_train, y_train, cv=5)
+
+    for model_name, summary in cv_results.items():
+        logger.info(
+            f"CV {model_name}: F1 médio={summary['mean_f1']:.3f} ± {summary['std_f1']:.3f}"
+        )
+
     trained_models = train_models(X_train, y_train)
     evaluate_models(trained_models, X_test, y_test)
-    
+
     logger.info(f"Pipeline finalizado. Dataset salvo em {output_path}")
 
 
