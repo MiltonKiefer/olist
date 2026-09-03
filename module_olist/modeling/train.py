@@ -60,3 +60,19 @@ def train_models(
 
     return trained_models
 
+
+def train_selected_model(
+        model_name: str,
+        X_train: pd.DataFrame,
+        y_train: pd.Series,
+):
+    """Treina somente o modelo escolhido pela validação cruzada."""
+    models = get_models()
+
+    if model_name not in models:
+        raise ValueError(f"Modelo desconhecido: {model_name}")
+
+    model = models[model_name]
+    model.fit(X_train, y_train)
+    return model
+
