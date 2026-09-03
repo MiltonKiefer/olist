@@ -7,9 +7,10 @@ from module_olist.dataset import (
     save_data,
 )
 from module_olist.features import create_feature
-from module_olist.modeling.evaluate import evaluate_models
+from module_olist.modeling.cross_validation import cross_validate_models as select_model
+from module_olist.modeling.evaluate import evaluate_model
 from module_olist.modeling.split import split_data
-from module_olist.modeling.train import cross_validate_models, get_models, train_models
+from module_olist.modeling.train import train_selected_model
 
 
 def main():
@@ -55,16 +56,18 @@ def main():
 
     X_train, X_test, y_train, y_test = split_data(dataset)
 
-    models = get_models()
-    cv_results = cross_validate_models(models, X_train, y_train, cv=5)
-
-    for model_name, summary in cv_results.items():
-        logger.info(
-            f"CV {model_name}: F1 médio={summary['mean_f1']:.3f} ± {summary['std_f1']:.3f}"
-        )
-
-    trained_models = train_models(X_train, y_train)
-    evaluate_models(trained_models, X_test, y_test)
+    selected_model_name, selected_threshold = select_model(X_train, y_train)
+    trained_model = train_selected_model(
+        selected_model_name,
+        X_train,
+        y_train,
+    )
+    evaluate_model(
+        trained_model,
+        X_test,
+        y_test,
+        threshold=float(selected_threshold),
+    )
 
     logger.info(f"Pipeline finalizado. Dataset salvo em {output_path}")
 
