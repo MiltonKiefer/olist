@@ -19,6 +19,7 @@ dependencies = [
     "ipython",
     "joblib",
     "jupyterlab",
+    "keras>=3",
     "loguru",
     "matplotlib",
     "mkdocs",
@@ -32,6 +33,7 @@ dependencies = [
     "scikit-learn",
     "seaborn>=0.13.2",
     "shap",
+    "torch",  # backend do Keras 3 (o TensorFlow ainda não tem pacote para o Python 3.14)
     "tqdm",
     "typer",
     "xgboost",

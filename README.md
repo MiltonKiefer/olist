@@ -70,6 +70,13 @@ Brazilian e-commerce public dataset.
 4. Gere a explicabilidade do modelo com SHAP: `python -m module_olist.explain`.
    Os gráficos (importância global, beeswarm, waterfall de um pedido e
    importância por variável) são salvos em `reports/figures/`.
+5. Rode o exemplo de active learning: `python -m module_olist.modeling.active_learning`.
+   Ele simula a rotulagem de pedidos (escondendo os rótulos do treino) com um
+   modelo do Keras e com o LightGBM, compara a escolha por incerteza com a
+   escolha aleatória e salva a curva em `reports/figures/active_learning_curve.png`
+   e os números em `reports/active_learning_results.csv`. O Keras usa o backend
+   PyTorch (ou TensorFlow, se instalado); para escolher, defina `KERAS_BACKEND`.
+   A execução completa leva cerca de 15 minutos em CPU.
 
 O modelo é um arquivo joblib e só deve ser carregado com a mesma versão do
 scikit-learn registrada em `models/metadata.json`.
