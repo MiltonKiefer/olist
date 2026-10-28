@@ -67,6 +67,9 @@ Brazilian e-commerce public dataset.
 3. Rode a inferência: `python -m module_olist.inference`. Ela carrega o modelo,
    prevê o risco de atraso dos pedidos do conjunto de teste e salva as
    predições em `data/processed/test_predictions.csv`.
+4. Gere a explicabilidade do modelo com SHAP: `python -m module_olist.explain`.
+   Os gráficos (importância global, beeswarm, waterfall de um pedido e
+   importância por variável) são salvos em `reports/figures/`.
 
 O modelo é um arquivo joblib e só deve ser carregado com a mesma versão do
 scikit-learn registrada em `models/metadata.json`.
