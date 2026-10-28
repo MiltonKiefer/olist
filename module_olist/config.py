@@ -17,6 +17,8 @@ PROCESSED_DATA_DIR = DATA_DIR / "processed"
 EXTERNAL_DATA_DIR = DATA_DIR / "external"
 
 MODELS_DIR = PROJ_ROOT / "models"
+MODEL_PATH = MODELS_DIR / "best_model.joblib"
+METADATA_PATH = MODELS_DIR / "metadata.json"
 
 REPORTS_DIR = PROJ_ROOT / "reports"
 FIGURES_DIR = REPORTS_DIR / "figures"

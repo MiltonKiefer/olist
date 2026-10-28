@@ -1,5 +1,5 @@
 from loguru import logger
-from module_olist.config import INTERIM_DATA_DIR, RAW_DATA_DIR
+from module_olist.config import INTERIM_DATA_DIR, PROCESSED_DATA_DIR, RAW_DATA_DIR
 from module_olist.dataset import (
     create_dataset,
     create_target,
@@ -10,7 +10,7 @@ from module_olist.features import create_feature
 from module_olist.modeling.cross_validation import cross_validate_models as select_model
 from module_olist.modeling.evaluate import evaluate_model
 from module_olist.modeling.split import split_data
-from module_olist.modeling.train import train_selected_model
+from module_olist.modeling.train import save_model, train_selected_model
 
 
 def main():
@@ -62,11 +62,27 @@ def main():
         X_train,
         y_train,
     )
-    evaluate_model(
+    test_metrics = evaluate_model(
         trained_model,
         X_test,
         y_test,
         threshold=float(selected_threshold),
+    )
+
+    # Salva o modelo treinado e os metadados (nome, threshold, features e métricas)
+    # em models/, para uso na inferência.
+    save_model(
+        trained_model,
+        selected_model_name,
+        float(selected_threshold),
+        test_metrics,
+    )
+
+    # Salva o conjunto de teste (features + valor real): é a entrada de exemplo
+    # da inferência, com pedidos que o modelo não viu no treino.
+    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+    X_test.assign(is_late=y_test).to_csv(
+        PROCESSED_DATA_DIR / "test_dataset.csv", index=False
     )
 
     logger.info(f"Pipeline finalizado. Dataset salvo em {output_path}")

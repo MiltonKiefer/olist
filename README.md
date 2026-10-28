@@ -57,5 +57,19 @@ Brazilian e-commerce public dataset.
     └── plots.py                <- Code to create visualizations
 ```
 
+## Uso
+
+1. Coloque os CSVs do Olist em `data/raw/` (`olist_orders_dataset.csv`,
+   `olist_order_items_dataset.csv` e `olist_customers_dataset.csv`).
+2. Treine o modelo: `python -m module_olist.main`. O modelo vai para
+   `models/best_model.joblib` e os metadados (nome do modelo, threshold,
+   features e métricas de teste) para `models/metadata.json`.
+3. Rode a inferência: `python -m module_olist.inference`. Ela carrega o modelo,
+   prevê o risco de atraso dos pedidos do conjunto de teste e salva as
+   predições em `data/processed/test_predictions.csv`.
+
+O modelo é um arquivo joblib e só deve ser carregado com a mesma versão do
+scikit-learn registrada em `models/metadata.json`.
+
 --------
 

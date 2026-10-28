@@ -17,6 +17,7 @@ classifiers = [
 ]
 dependencies = [
     "ipython",
+    "joblib",
     "jupyterlab",
     "loguru",
     "matplotlib",

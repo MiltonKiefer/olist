@@ -1,0 +1,25 @@
+{
+  "model_name": "LightGBM",
+  "threshold": 0.14,
+  "features": [
+    "promised_days",
+    "purchase_hour",
+    "purchase_weekday",
+    "purchase_month",
+    "item_count",
+    "seller_count",
+    "total_price",
+    "total_freight",
+    "customer_state"
+  ],
+  "test_metrics": {
+    "threshold": 0.14,
+    "accuracy": 0.8446506323864814,
+    "precision": 0.2505226480836237,
+    "recall": 0.4594249201277955,
+    "f1": 0.32423900789177,
+    "roc_auc": 0.7644345884177689
+  },
+  "sklearn_version": "1.9.1",
+  "trained_at": "2026-10-28T12:57:28"
+}
